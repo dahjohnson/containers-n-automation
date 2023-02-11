@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - name: nginx-pv
+      image: nginx
+      command: ['sh', '-c', 'echo "This is Persistent!" > /tmp/k8s/output.txt']
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: nginx-storage
+          mountPath: /tmp/k8s
+  volumes:
+    - name: nginx-storage
+      persistentVolumeClaim:
+        claimName: nginx-pod-pvc
