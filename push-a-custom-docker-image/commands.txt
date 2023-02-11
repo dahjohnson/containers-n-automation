@@ -1,0 +1,49 @@
+# Commands to complete demo
+
+# list images
+docker images
+
+# show all containers
+docker ps -a
+
+# build image
+docker build -t <image_name>:<tag> <Directory for Dockerfile>
+
+# create container from custom image
+docker run -d -p <host_port>:<container_port> --name <container_name> <image_name>:<tag>
+
+# show running containers
+docker ps
+
+# display custom web page
+curl localhost:8080
+
+# build image of running container
+docker commit <container_name> <image_name>:<new_tag>
+
+# create AWS ECR repo
+aws ecr create-repository --repository-name <repository_name>
+
+# authenticate Docker client to AWS ECR registry
+aws ecr get-login-password --region <region> | \
+  docker login --username AWS --password-stdin <account_id>.dkr.ecr.<region>.amazonaws.com
+
+# tag custom image with the AWS  ECR registry, repository, and image tag name
+docker tag <image_id> <repositoryUri>:<image_tag>
+
+# push image to ECR repo
+docker push <repositoryUri>:<image_tag>
+
+# verify image was uploaded successfully
+aws ecr describe-images --repository <repository_name>
+
+# login to Docker hub
+docker login
+
+# tag custom image with your Docker Hub repository, image, and tag name
+docker tag <image_id> <repositry>/<image_name>:<tag>
+
+# push image to Docker hub
+docker push <repository>/<image_name>:<tag>
+
+
