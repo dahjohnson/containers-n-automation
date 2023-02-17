@@ -1,6 +1,6 @@
 # Performing Rolling Updates with AWS EKS
 
-
+![aws-eks-rolling-update](https://user-images.githubusercontent.com/116639830/219545628-972e675b-74b7-4b3d-b265-d0109a92eb91.png)
 
 - [Medium Blog Walkthrough](https://medium.com/@dahmearjohnson/performing-rolling-updates-with-aws-eks-375d33b89f7d "<performing-rolling-updates-with-aws-eks-375d33b89f7> Medium Blog Walkthrough")
 
@@ -96,5 +96,19 @@
 ### Roll back changes
 `kubectl rollout undo deployment mysql-deployment --to-revision=1`
 
+### List and delete Load Balancer
+`aws elb describe-load-balancers --query LoadBalancerDescriptions[].[LoadBalancerName,DNSName]`
 
+`aws elb delete-load-balancer --load-balancer-name <load balancer name>`
+
+### List CloudFormation stacks
+`aws cloudformation describe-stacks --query 'Stacks[].StackName'`
+
+### Delete CloudFormation stacks
+`aws cloudformation delete-stack --stack-name <node-group-stack-name>`
+
+`aws cloudformation delete-stack --stack-name <eks-cluster-stack-name>`
+
+### Show CloudFormation stack status
+`aws cloudformation describe-stacks --query 'Stacks[].[StackName,StackStatus]'`
  
